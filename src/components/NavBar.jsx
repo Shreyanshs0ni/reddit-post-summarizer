@@ -4,7 +4,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 const NavBar = () => {
   return (
     <>
-      <div className="navbar shadow-sm md:px-4 lg:px-4  ">
+      <div className="navbar h-[8vh] shadow-sm md:px-4 lg:px-4 bg-gray-800 text-gray-100  ">
         <div className="navbar-start">
           <a
             className="btn btn-ghost text-lg md:text-xl lg:text-xl flex justify-between gap-2"
