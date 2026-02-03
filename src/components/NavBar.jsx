@@ -15,7 +15,7 @@ const NavBar = () => {
           </a>
         </div>
         <div className="navbar-end gap-2 items-center flex justify-end">
-          <p className="text-sm animate-pulse">Check Out The Repository -></p>
+          <p className="text-sm animate-pulse hidden md:block lg:block">Check Out The Repository -></p>
           <a
             href="https://github.com/Shreyanshs0ni/reddit-post-summarizer"
             target="_blank"

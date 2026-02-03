@@ -8,15 +8,16 @@ const Footer = () => {
   return (
     <>
       <footer className="footer sm:footer-horizontal bg-gray-800 text-gray-100 p-4 absolute bottom-0">
-        <aside className=" items-center justify-between flex grid-cols-3 w-full">
+        <aside className=" items-center justify-between flex lg:grid-cols-3 md:grid-cols-3 w-full">
           <div className=" text-lg md:text-xl lg:text-xl font-bold flex items-center gap-2">
             <img className="w-8 h-8" src={logo} alt={'logo'} /> Reddit Post
             Summarizer
           </div>
-          <p>
+          <p className="hidden md:block lg:block">
             Shreyansh Soni © {new Date().getFullYear()} - All right reserved
           </p>
-          <div className="flex gap-4 md:place-self-center md:justify-self-end">
+
+          <div className="flex flex-col md:flex-row lg:flex-row gap-4 md:place-self-center md:justify-self-end">
             <a
               href="https://www.instagram.com/shreyanshs0ni/"
               target="_blank"

@@ -1,13 +1,23 @@
 import { useState } from 'react';
+import { GoogleGenAI } from '@google/genai';
 
+// The client gets the API key from the environment variable `GEMINI_API_KEY`.
+const ai = new GoogleGenAI({
+  apiKey: '',
+});
+
+async function handleClick() {
+  const response = await ai.models.generateContent({
+    model: 'gemini-3-flash-preview',
+    contents: 'Explain how AI works in a few words',
+  });
+  console.log(response.text);
+}
 const Input = () => {
   const [value, setValue] = useState('');
-  const handleClick = () => {
-    console.log('clicked');
-  };
   return (
     <div className="flex items-center flex-col justify-center w-full mt-20">
-      <label className="input input-neutral bg-gray-800 text-gray-100 validator input-xl rounded-full w-[30vw]">
+      <label className="input input-neutral bg-gray-800 text-gray-100 validator md:input-xl lg:input-xl  rounded-full md:w-[30vw] lg:w-[30vw]">
         <svg
           className="h-[1em] opacity-50"
           xmlns="http://www.w3.org/2000/svg"
