@@ -1,5 +1,6 @@
 import NavBar from './components/NavBar.jsx';
 import Input from './components/Input.jsx';
+import Footer from './components/Footer.jsx';
 
 const app = () => {
   return (
@@ -11,6 +12,7 @@ const app = () => {
           without the noise.
         </h1>
         <Input />
+        <Footer />
       </div>
     </>
   );

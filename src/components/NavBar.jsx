@@ -14,7 +14,8 @@ const NavBar = () => {
             Summarizer
           </a>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end gap-2 items-center flex justify-end">
+          <p className="text-sm animate-pulse">Check Out The Repository -></p>
           <a
             href="https://github.com/Shreyanshs0ni/reddit-post-summarizer"
             target="_blank"
