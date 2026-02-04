@@ -3,18 +3,66 @@ import { GoogleGenAI } from '@google/genai';
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({
-  apiKey: '',
+  apiKey: 'AIzaSyDDecVlqOMXeSRT1L3uiqj5PYxWq06kAQ0',
 });
 
-async function handleClick() {
-  const response = await ai.models.generateContent({
-    model: 'gemini-3-flash-preview',
-    contents: 'Explain how AI works in a few words',
-  });
-  console.log(response.text);
+async function getAiResults(text) {
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-3-flash-preview',
+      contents: [
+        {
+          role: 'user',
+          parts: [{ text }],
+        },
+      ],
+    });
+    console.log(response.text);
+  } catch (err) {
+    console.error(err);
+  }
 }
+
+export async function fetchRedditData(url) {
+  const res = await fetch(
+    `http://localhost:3000/api/reddit?url=${encodeURIComponent(url)}`
+  );
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch Reddit data');
+  }
+
+  return res.json();
+}
+
 const Input = () => {
+  const [loading, setLoading] = useState(false);
   const [value, setValue] = useState('');
+  const [data, setData] = useState(null);
+
+  async function handleClick(value) {
+    setLoading(true);
+    try {
+      const result = await fetchRedditData(value);
+      setData(result);
+      const prompt = `Title:
+${result.post.title}
+
+Post:
+${result.post.body}
+
+Top Comments:
+- ${result.comments.join('\n- ')}
+    `;
+
+      await getAiResults(result);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setLoading(false);
+  }
+
   return (
     <div className="flex items-center flex-col justify-center w-full mt-20">
       <label className="input input-neutral bg-gray-800 text-gray-100 validator md:input-xl lg:input-xl  rounded-full md:w-[30vw] lg:w-[30vw]">
@@ -45,12 +93,14 @@ const Input = () => {
         />
       </label>
       <p className="validator-hint">Must be valid URL</p>
+      !loading ?
       <button
-        onClick={handleClick}
+        onClick={() => handleClick(value)}
         className="btn btn-soft btn-xl rounded-full btn-neutral hover:text-red-500 bg-gray-800 text-gray-100 mt-10"
       >
         Summarize
-      </button>
+      </button>{' '}
+      : <p>Loading...</p>
     </div>
   );
 };
